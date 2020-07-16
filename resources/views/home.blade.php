@@ -5,17 +5,20 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <div class="card shadow">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+            <div class="card" style="min-height: 85vh">
+                <div class="card-header"><b>DASHBOARD</b></div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="card mb-3 shadow">
+                                <img class="card-img-top" src="" alt="Card image cap" style="width: 100%;height:175px;padding: 0.9rem 0.9rem;">
+                                <div class="card-body">
+                                    <p class="card-text text-center"><b>PENJUALAN</b></p>
+                                </div>
+                            </div>
                         </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+                    </div>
                 </div>
             </div>
         </div>

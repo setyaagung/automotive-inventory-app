@@ -5,9 +5,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <div class="card shadow">
+            <div class="card">
                 <div class="card-header">
-                    <h5 class="float-left">KATEGORI</h5>
+                    <h5 class="float-left"><b>KATEGORI</b></h5>
                     <a href="{{route('category.create')}}" class="btn btn-primary btn-sm float-right">TAMBAH KATEGORI</a>
                 </div>
 

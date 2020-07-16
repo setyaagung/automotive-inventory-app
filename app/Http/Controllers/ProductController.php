@@ -13,9 +13,13 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with(['category'])->paginate(8);
+        if ($request->has('search')) {
+            $products = Product::with(['category'])->where('name', 'LIKE', '%' . $request->search . '%')->paginate(8);
+        } else {
+            $products = Product::with(['category'])->orderBy('created_at','asc')->paginate(8);
+        }
         return view('product.index', compact('products'));
     }
 
@@ -67,7 +71,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
+        return view('product.edit', compact('product', 'categories'));
     }
 
     /**
@@ -79,7 +85,16 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'image' => 'mimes:jpeg,png,bmp,tiff |max:4096',
+        ]);
+        $data = $request->all();
+        if ($request->file('image')) {
+            $data['image'] = $request->file('image')->store('assets/product', 'public');
+        }
+        $product = Product::findOrFail($id);
+        $product->update($data);
+        return redirect()->route('product.index')->with('update', 'Data produk berhasil diperbarui');
     }
 
     /**

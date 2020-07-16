@@ -40,13 +40,13 @@
                             <a href="{{route('home')}}" class="nav-link text-white {{ (request()->segment(1) == 'home') ? 'active' : '' }}">Dashboard</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link text-white dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link text-white {{ (request()->segment(1) == 'product') ? 'active' : '' }} {{ (request()->segment(1) == 'category') ? 'active' : '' }} dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 Master Data
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{route('product.index')}}">Produk</a>
-                                <a class="dropdown-item" href="{{route('category.index')}}">Kategori</a>
+                                <a class="dropdown-item {{ (request()->segment(1) == 'product') ? 'active' : '' }}" href="{{route('product.index')}}">Produk</a>
+                                <a class="dropdown-item {{ (request()->segment(1) == 'category') ? 'active' : '' }}" href="{{route('category.index')}}">Kategori</a>
                                 <a class="dropdown-item" href="#">Customer</a>
                                 <a class="dropdown-item" href="#">Supplier</a>
                             </div>

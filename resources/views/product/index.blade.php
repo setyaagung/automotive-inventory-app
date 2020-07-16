@@ -5,17 +5,23 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <div class="card shadow" style="min-height: 85vh">
+            <div class="card" style="min-height: 85vh">
                 <div class="card-header">
-                    <h5 class="float-left">PRODUK</h5>
-                    <a href="{{route('product.create')}}" class="btn btn-primary btn-sm float-right">TAMBAH PRODUK</a>
-                    <form action="{{ route('product.index') }}" method="get">
-                        <div>
-                            <input type="text" name="search"
-                                class="form-control form-control-sm col-sm-5 float-right mr-3"
-                                placeholder="Cari Produk ..." onblur="this.form.submit()">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h5 class="float-left"><b>PRODUK</b></h5>
                         </div>
-                    </form>
+                        <div class="col-sm-6">
+                            <form action="{{ route('product.index') }}" method="GET">
+                                <div>
+                                    <input type="text" name="search" class="form-control form-control-sm col-sm-12" style="float: right !important" placeholder="Cari Produk ..." onblur="this.form.submit()">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-3">
+                            <a href="{{route('product.create')}}" class="btn btn-primary btn-sm float-right">TAMBAH PRODUK</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     @if ($message = Session::get('success'))
@@ -48,9 +54,6 @@
                             <div class="card mb-3 shadow">
                                 <div class="view overlay">
                                     <img class="card-img-top" src="{{ $product->image }}" alt="Card image cap" style="width: 100%;height:175px;padding: 0.9rem 0.9rem;">
-                                    <a href="#!">
-                                        <div class="mask rgba-white-slight"></div>
-                                    </a>
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title text-center font-weight-bold"
@@ -66,7 +69,14 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="mr-auto ml-auto">{{ $products->links() }}</div>
+                <div class="row mb-3">
+                    <div class="col-sm-6">
+                        <div class="float-left ml-3"><b>TOTAL DATA PRODUK : {{ DB::table('products')->count() }}</b></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="float-right mr-3">{{ $products->links() }}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
