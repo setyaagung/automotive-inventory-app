@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -13,7 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::with(['category'])->paginate(8);
+        return view('product.index', compact('products'));
     }
 
     /**
@@ -23,7 +26,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('product.create', compact('categories'));
     }
 
     /**
@@ -34,7 +38,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'image' => 'mimes:jpeg,png,bmp,tiff |max:4096',
+        ]);
+        $data = $request->all();
+        $data['image'] = $request->file('image')->store('assets/product', 'public');
+
+        Product::create($data);
+        return redirect()->route('product.index')->with('success', 'Data produk berhasil ditambahkan');
     }
 
     /**
