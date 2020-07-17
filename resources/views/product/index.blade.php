@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <div class="card" style="min-height: 85vh">
+            <div class="card" style="min-height: 80vh">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-sm-3">

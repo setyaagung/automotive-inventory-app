@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','KATEGORI')
+@section('title','HISTORY PENJUALAN')
     
 @section('content')
 <div class="container">
@@ -7,8 +7,8 @@
         <div class="col-md-10">
             <div class="card" style="min-height: 80vh">
                 <div class="card-header">
-                    <h5 class="float-left"><b>KATEGORI</b></h5>
-                    <a href="{{route('category.create')}}" class="btn btn-primary btn-sm float-right">TAMBAH KATEGORI</a>
+                    <h5 class="float-left"><b>HISTORY PENJUALAN</b></h5>
+                    <a href="{{route('sale.create')}}" class="btn btn-primary btn-sm float-right">TAMBAH</a>
                 </div>
 
                 <div class="card-body">
@@ -40,18 +40,28 @@
                         <thead>
                             <tr>
                                 <th>NO</th>
-                                <th>NAMA</th>
+                                <th>INVOICE</th>
+                                <th>USER</th>
+                                <th>CUSTOMER</th>
+                                <th>STATUS</th>
                                 <th>AKSI</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $category)
+                            @foreach ($sales as $sale)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$category->name}}</td>
+                                <td><a href="{{ route('sale.show',$sale->id) }}">{{$sale->invoices_number}}</a></td>
+                                <td>{{$sale->user->name}}</td>
+                                <td>{{$sale->customer->name}}</td>
+                                @if ($sale->total == $sale->pay)
+                                    <td><span class="badge badge-success">LUNAS</span></td>
+                                @else
+                                    <td><span class="badge badge-success">BELUM LUNAS</span></td>
+                                @endif
                                 <td>
-                                    <a href="{{route('category.edit',$category->id)}}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
-                                    <form action="{{route('category.destroy',$category->id)}}" class="d-inline" method="POST">
+                                    <a href="{{route('sale.edit',$sale->id)}}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                                    <form action="{{route('sale.destroy',$sale->id)}}" class="d-inline" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin dihapus?')"><i class="fas fa-trash"></i></button>

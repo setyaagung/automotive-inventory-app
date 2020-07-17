@@ -24,4 +24,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('product', 'ProductController');
     Route::resource('category', 'CategoryController');
+    Route::resource('customer', 'CustomerController');
+    Route::resource('supplier', 'SupplierController');
+    Route::resource('sale', 'SaleController');
 });

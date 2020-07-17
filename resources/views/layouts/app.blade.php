@@ -40,15 +40,15 @@
                             <a href="{{route('home')}}" class="nav-link text-white {{ (request()->segment(1) == 'home') ? 'active' : '' }}">Dashboard</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link text-white {{ (request()->segment(1) == 'product') ? 'active' : '' }} {{ (request()->segment(1) == 'category') ? 'active' : '' }} dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link text-white {{ (request()->segment(1) == 'product') ? 'active' : '' }} {{ (request()->segment(1) == 'category') ? 'active' : '' }} {{ (request()->segment(1) == 'customer') ? 'active' : '' }} {{ (request()->segment(1) == 'supplier') ? 'active' : '' }} dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 Master Data
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item {{ (request()->segment(1) == 'product') ? 'active' : '' }}" href="{{route('product.index')}}">Produk</a>
                                 <a class="dropdown-item {{ (request()->segment(1) == 'category') ? 'active' : '' }}" href="{{route('category.index')}}">Kategori</a>
-                                <a class="dropdown-item" href="#">Customer</a>
-                                <a class="dropdown-item" href="#">Supplier</a>
+                                <a class="dropdown-item {{ (request()->segment(1) == 'customer') ? 'active' : '' }}" href="{{route('customer.index')}}">Customer</a>
+                                <a class="dropdown-item {{ (request()->segment(1) == 'supplier') ? 'active' : '' }}" href="{{route('supplier.index')}}">Supplier</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -57,7 +57,7 @@
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Penjualan</a>
+                                <a class="dropdown-item" href="{{route('sale.index')}}">Penjualan</a>
                                 <a class="dropdown-item" href="#">Pembelian</a>
                             </div>
                         </li>

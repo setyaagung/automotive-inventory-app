@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','KATEGORI')
+@section('title','CUSTOMER')
     
 @section('content')
 <div class="container">
@@ -7,8 +7,8 @@
         <div class="col-md-10">
             <div class="card" style="min-height: 80vh">
                 <div class="card-header">
-                    <h5 class="float-left"><b>KATEGORI</b></h5>
-                    <a href="{{route('category.create')}}" class="btn btn-primary btn-sm float-right">TAMBAH KATEGORI</a>
+                    <h5 class="float-left"><b>CUSTOMER</b></h5>
+                    <a href="{{route('customer.create')}}" class="btn btn-primary btn-sm float-right">TAMBAH CUSTOMER</a>
                 </div>
 
                 <div class="card-body">
@@ -41,17 +41,21 @@
                             <tr>
                                 <th>NO</th>
                                 <th>NAMA</th>
+                                <th>ALAMAT</th>
+                                <th>TELEPON</th>
                                 <th>AKSI</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $category)
+                            @foreach ($customers as $customer)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$category->name}}</td>
+                                <td>{{$customer->name}}</td>
+                                <td>{{$customer->address}}</td>
+                                <td>{{$customer->phone}}</td>
                                 <td>
-                                    <a href="{{route('category.edit',$category->id)}}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
-                                    <form action="{{route('category.destroy',$category->id)}}" class="d-inline" method="POST">
+                                    <a href="{{route('customer.edit',$customer->id)}}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                                    <form action="{{route('customer.destroy',$customer->id)}}" class="d-inline" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin dihapus?')"><i class="fas fa-trash"></i></button>

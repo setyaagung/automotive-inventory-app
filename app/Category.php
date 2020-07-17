@@ -9,7 +9,7 @@ class Category extends Model
 {
     use SoftDeletes;
     protected $fillable = ['name'];
-    protected $guarded = [];
+    protected $hidden = [];
 
     public function products()
     {
