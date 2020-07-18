@@ -8,7 +8,7 @@
             <div class="card" style="min-height: 80vh">
                 <div class="card-header">
                     <h5 class="float-left"><b>HISTORY PENJUALAN</b></h5>
-                    <a href="{{route('sale.create')}}" class="btn btn-primary btn-sm float-right">TAMBAH</a>
+                    <a href="{{route('sale.create')}}" class="btn btn-primary btn-sm float-right">TRANSAKSI</a>
                 </div>
 
                 <div class="card-body">
@@ -54,10 +54,10 @@
                                 <td><a href="{{ route('sale.show',$sale->id) }}">{{$sale->invoices_number}}</a></td>
                                 <td>{{$sale->user->name}}</td>
                                 <td>{{$sale->customer->name}}</td>
-                                @if ($sale->total == $sale->pay)
+                                @if ($sale->total <= $sale->pay)
                                     <td><span class="badge badge-success">LUNAS</span></td>
                                 @else
-                                    <td><span class="badge badge-success">BELUM LUNAS</span></td>
+                                    <td><span class="badge badge-danger">BELUM LUNAS</span></td>
                                 @endif
                                 <td>
                                     <a href="{{route('sale.edit',$sale->id)}}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>

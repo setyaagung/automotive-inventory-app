@@ -16,24 +16,43 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <style>
+        html {
+            overflow: scroll;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar {
+            width: 0px;
+            /* Remove scrollbar space */
+            background: transparent;
+            /* Optional: just make scrollbar invisible */
+        }
         .active{
             color: yellow !important;
+        }
+        .cart-btn{
+            position: absolute;
+            display: block;
+            top: 5%;
+            right: 5%;
+            cursor: pointer;
+            transition: all 0.3s linear;
+            padding: 0.6rem 0.8rem !important;
         }
     </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark shadow-sm" style="background: #111d5e">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    IBAS JAYA
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <nav class="navbar navbar-expand-md navbar-dark shadow-sm fixed-top pl-3 pt-2 pb-2" style="background: #111d5e">
+            <a class="navbar-brand" href="{{ url('/') }}">
+                IBAS JAYA
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
@@ -57,7 +76,7 @@
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{route('sale.index')}}">Penjualan</a>
+                                <a class="dropdown-item" href="{{route('sale.create')}}">Penjualan</a>
                                 <a class="dropdown-item" href="#">Pembelian</a>
                             </div>
                         </li>
@@ -107,21 +126,61 @@
                             @endauth
                         @endif
                     </ul>
-                </div>
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4" style="margin-top: 60px">
             @yield('content')
         </main>
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script type="text/javascript">
 		$(document).ready(function() {
             $('#myTable').DataTable();
+            $('#pay').on('shown.bs.modal', function () {
+                $('#oke').trigger('focus');
+            });
+            oke.oninput = function () {
+            let jumlah = parseInt(document.getElementById('totalHidden').value) ? parseInt(document.getElementById('totalHidden').value) : 0;
+            let pay = parseInt(document.getElementById('oke').value) ? parseInt(document.getElementById('oke').value) : 0;
+            let hasil = pay - jumlah;
+            document.getElementById("pembayaran").innerHTML = pay ? 'Rp ' + rupiah(pay) + ',00' : 'Rp ' + 0 +
+                ',00';
+            document.getElementById("kembalian").innerHTML = hasil ? 'Rp ' + rupiah(hasil) + ',00' : 'Rp ' + 0 +
+                ',00';
+            cek(pay, jumlah);
+            const saveButton = document.getElementById("saveButton");   
+            if(jumlah === 0){
+                saveButton.disabled = true;
+            }
+        };
+        function cek(pay, jumlah) {
+            const saveButton = document.getElementById("saveButton");   
+            if (pay < jumlah) {
+                saveButton.disabled = true;
+            } else {
+                saveButton.disabled = false;
+            }
+        }
+        function rupiah(bilangan) {
+            var number_string = bilangan.toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{1,3}/gi);
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            return rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        }
         } );
+        @if (Session::has('error'))
+			toastr.error("{{Session::get('error')}}", "Kehabisan Stok");
+		@endif
 	</script>
 </body>
 </html>

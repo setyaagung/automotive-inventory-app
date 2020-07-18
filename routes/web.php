@@ -27,4 +27,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('customer', 'CustomerController');
     Route::resource('supplier', 'SupplierController');
     Route::resource('sale', 'SaleController');
+    Route::post('/sale/addproduct/{id}', 'SaleController@addProductCart')->name('sale.addproduct');
+    Route::delete('/sale/removeproduct/{id}', 'SaleController@removeProductCart')->name('sale.removeproduct');
+    Route::post('/sale/increasecart/{id}', 'SaleController@increasecart')->name('sale.increasecart');
+    Route::post('/sale/decreasecart/{id}', 'SaleController@decreasecart')->name('sale.decreasecart');
+    Route::post('/sale/clear', 'SaleController@clear')->name('sale.clear');
+    Route::post('/sale/pay', 'SaleController@pay')->name('sale.pay');
 });
