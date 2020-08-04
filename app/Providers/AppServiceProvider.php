@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,7 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(UrlGenerator $url)
     {
-        Schema::defaultStringLength(191);
         if (env('REDIRECT_HTTPS')) {
             $url->formatScheme('https');
         }
