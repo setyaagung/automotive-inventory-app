@@ -53,7 +53,7 @@
                         <div class="col-sm-3">
                             <div class="card mb-3 shadow">
                                 <div class="view overlay">
-                                    <img class="card-img-top" src="{{ asset('app/storage/'.$product->image) }}" alt="Card image cap" style="width: 100%;height:175px;padding: 0.9rem 0.9rem;">
+                                    <img class="card-img-top" src="{{ asset('storage/'.$product->image) }}" alt="Card image cap" style="width: 100%;height:175px;padding: 0.9rem 0.9rem;">
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title text-center font-weight-bold"
